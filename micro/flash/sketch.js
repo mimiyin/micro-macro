@@ -21,5 +21,6 @@ function keyPressed() {
   switch (key) {
     case 'f':
       flash = !flash;
+      console.log('flash on?', flash);
   }
 }
