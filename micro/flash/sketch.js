@@ -1,6 +1,8 @@
+// Press 'f' to turn flash on/off
 // FLASH SETTINGS
-const FLASH_INTERVAL = 60 * 10 // Will flash every 10s
-const FLASH_HOLD = 30 // For 1/2 a second
+const FPS = 60;
+const FLASH_INTERVAL = FPS * 10 // Will flash every 10s
+const FLASH_HOLD = FPS * 0.5 // For 1/2 a second
 const FLASH_BG = 128
 
 // Press 'f' to turn flash on/off

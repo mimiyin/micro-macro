@@ -6,16 +6,18 @@
 // LEFT, RIGHT = JUMP PRESENT DENSITIES
 // A = AUTO VS. MANUAL (AUTO MEANS WEIGHTED RANDOM)
 
+// Press 'f' to turn flash on/off
 // FLASH SETTINGS
-const FLASH_INTERVAL = 60 * 10; // Will flash every 10s
-const FLASH_HOLD = 30; // For 1/2 a second
-const FLASH_BG = 128;
+const FPS = 60;
+const FLASH_INTERVAL = FPS * 10 // Will flash every 10s
+const FLASH_HOLD = FPS * 0.5 // For 1/2 a second
+const FLASH_BG = 128
 
 // Press 'f' to turn flash on/off
 let flash = false;
 
 // GOL SETTINGS
-const VIS_RES = 3 // <-- Visible num of rows/cols
+const VIS_RES = 3 // <-- Num of rows/cols
 
 ////////////////////////
 const COLS = VIS_RES + 2;

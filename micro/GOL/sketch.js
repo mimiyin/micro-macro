@@ -5,26 +5,28 @@
 // LEFT, RIGHT = JUMP PRESENT DENSITIES
 // A = AUTO VS. MANUAL (AUTO MEANS WEIGHTED RANDOM)
 
+// Press 'f' to turn flash on/off
 // FLASH SETTINGS
-const FLASH_INTERVAL = 60 * 10 // Will flash every 10s
-const FLASH_HOLD = 30 // For 1/2 a second
+const FPS = 60;
+const FLASH_INTERVAL = FPS * 10 // Will flash every 10s
+const FLASH_HOLD = FPS * 0.5 // For 1/2 a second
 const FLASH_BG = 128
 
 // Press 'f' to turn flash on/off
-let flash = true;
+let flash = false;
 
 // GOL SETTINGS
 const INTERVAL_IN_SECONDS = 60 // Time between generations in seconds
-let density = 0.01 // Density (0.01 to 0.75)
+let density = 0.1 // Density (0.01 to 0.75)
 let visRes = 3; // Visible resolution (number of columns and rows)
-let pace = 5; // How fast to fade in / fade out
+let pace = 5; // From 0-255 How fast to fade in / fade out per frame
 
 /////////////////////////////////////////////
 let w, h, columns, rows, board, pboard, next;
 let auto = true;
 let fadeIn = 0;
 let fadeOut = 255;
-let generateInterval = 60 * INTERVAL_IN_SECONDS; // Time between generations in seconds
+let generateInterval = FPS * INTERVAL_IN_SECONDS; // Time between generations in seconds
 let seedWeights = [0, 10, 20, 50, 20]; // DENSITY WEIGHT, IGNORE FIRST '0'
 let weights = [];
 let densities = [-1, 0.01, 0.05, 0.1, 0.5, 0.75]; // DENSITY PRESET
