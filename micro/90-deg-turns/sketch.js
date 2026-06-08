@@ -1,11 +1,14 @@
 // Press 'f' to turn flash on/off
-// Press ENTER/RETURN to force rotation
+// Double press 'f' to increase rate of flashing
+// Press ENTER/RETURN to advance rotation
+// Press arrow keys to jump to rotation
 
 // FLASH SETTINGS
 const FPS = 60;
-const FLASH_INTERVAL = FPS * 10 // Will flash every 10s
+let flash_mult = 1;
+const FLASH_INTERVAL = FPS * flash_mult; // Will flash every 10s
 const FLASH_HOLD = FPS * 0.5 // For 1/2 a second
-const FLASH_BG = 128
+const FLASH_BG = 0
 let flash = false;
 
 // TURN SETTINGS
@@ -22,29 +25,48 @@ function draw() {
   background(0)
   fill(255);
 
+  if (flash) {
+    let f = frameCount % floor(FLASH_INTERVAL * flash_mult);
+    if (f > 0 && f < FLASH_HOLD) fill(FLASH_BG);
+  }
+
   let f = counter % (TURN_INTERVAL * 4);
   if (f < TURN_INTERVAL * 1) rect(0, 0, width / 2, height);
-  else if (f < TURN_INTERVAL * 2) rect(0, 0, width, height/2);
-  else if (f < TURN_INTERVAL * 3) rect(width/2, 0, width / 2, height);
-  else rect(0, height/2, width, height / 2);
+  else if (f < TURN_INTERVAL * 2) rect(0, 0, width, height / 2);
+  else if (f < TURN_INTERVAL * 3) rect(width / 2, 0, width / 2, height);
+  else rect(0, height / 2, width, height / 2);
   counter++;
 
-  if (flash) {
-    let f = frameCount % FLASH_INTERVAL;
-    if (f > 0 && f < FLASH_HOLD) background(FLASH_BG);
-  }
+  
 }
 
 function keyPressed() {
   switch (key) {
     case 'f':
       flash = !flash;
+      if(flash) {
+        flash_mult *= 0.9;
+        flash_mult = max(flash_mult, 0.1);
+      }
       console.log('flash on?', flash);
   }
 
-  switch(keyCode) {
+  switch (keyCode) {
     case ENTER:
       counter += TURN_INTERVAL;
+      break;
+    case LEFT_ARROW:
+      counter = 0;
+      break;
+    case UP_ARROW:
+      counter = TURN_INTERVAL;
+      break;
+    case RIGHT_ARROW:
+      counter = TURN_INTERVAL * 2;
+      break;
+    case DOWN_ARROW:
+      counter = TURN_INTERVAL * 3;
+      break;
   }
 }
 
