@@ -1,0 +1,8 @@
+remember
+follow
+forget
+show 
+reveal
+require
+need
+ask
