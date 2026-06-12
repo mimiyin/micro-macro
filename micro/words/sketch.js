@@ -4,10 +4,11 @@ let prompter;
 let urlParams = new URLSearchParams(window.location.search);
 
 // SETTINGS
-let src = parseInt(urlParams.get('src')) || 'words';
+let src = urlParams.get('src') || 'words';
+console.log(src);
 
 function preload() {
-  phrases = loadStrings(src +'.txt');
+  phrases = loadStrings(src + '.txt');
 }
 
 function setup() {
