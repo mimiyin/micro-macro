@@ -9,10 +9,12 @@ let flash_mult = 1;
 const FLASH_INTERVAL = FPS * flash_mult; // Will flash every 10s
 const FLASH_HOLD = FPS * 0.5 // For 1/2 a second
 const FLASH_BG = 0
+
+let auto = false;
 let flash = false;
 
 // TURN SETTINGS
-const TURN_INTERVAL = FPS * 60 * 10; // 10 minutes
+const TURN_INTERVAL = parseInt(FPS * 60 * 0.5); // 10 minutes
 let counter = 0;
 
 function setup() {
@@ -35,7 +37,7 @@ function draw() {
   else if (f < TURN_INTERVAL * 2) rect(0, 0, width, height / 2);
   else if (f < TURN_INTERVAL * 3) rect(width / 2, 0, width / 2, height);
   else rect(0, height / 2, width, height / 2);
-  counter++;
+  if(auto) counter++;
 
   
 }
@@ -49,6 +51,11 @@ function keyPressed() {
         flash_mult = max(flash_mult, 0.1);
       }
       console.log('flash on?', flash);
+      break;
+    case 'a':
+      auto = !auto;
+      console.log('auto', auto);
+      break;
   }
 
   switch (keyCode) {
