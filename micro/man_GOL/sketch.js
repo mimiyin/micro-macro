@@ -35,11 +35,23 @@ let move = false;
 let movers = [];
 let debug = false;
 
+// Staging
+let stage = false;
+let shush = false;
+let center;
+let bell;
+let shhh;
+
+function preload() {
+  bell = loadSound('bell.wav');
+  shhh = loadSound('noise.wav');
+}
+
 function setup() {
   noStroke();
   createCanvas(windowWidth, windowHeight);
   background(0);
-  init();
+  init_board();
   init_movers();
 }
 
@@ -58,6 +70,17 @@ function draw() {
     let f = frameCount % FLASH_INTERVAL;
     if (f > 0 && f < FLASH_HOLD) background(FLASH_BG);
   }
+
+  // Play noise
+  if(stage) {
+    if(frameCount % 120 == 1) {
+      shush = !shush;
+      if(shush) shhh.play();      
+      else shhh.stop();
+      
+    }
+  }
+
 }
 
 function mousePressed() {
@@ -87,6 +110,7 @@ class Cell {
   toggle(force) {
     if (force || this.hover()) {
       this.on = !this.on;
+      if(this.on) bell.play();
       this.a = constrain(this.a, 0, 255);
     }
   }
@@ -142,12 +166,16 @@ function init_movers() {
 }
 
 // Fill board randomly
-function init() {
+function init_board() {
   for (let c = 0; c < COLS; c++) {
     for (let r = 0; r < ROWS; r++) {
       cells.push(new Cell(c, r));
     }
   }
+
+  // Assign center cell
+  let c = (floor(COLS/2) * ROWS) + floor(ROWS/2);
+  center = cells[c];
 }
 
 function keyPressed() {
@@ -159,6 +187,11 @@ function keyPressed() {
     case 'a':
       auto = !auto;
       toggle_auto();
+      break;
+    case 'c':
+      stage = !stage;
+      shush = stage;
+      center.toggle(true);
       break;
     case 'm':
       move = !move;
