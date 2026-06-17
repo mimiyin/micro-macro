@@ -74,12 +74,11 @@ function draw() {
   // Play noise
   if(stage) {
     if(frameCount % 120 == 1) {
-      shush = !shush;
+      shush = !shush;      
       if(shush) shhh.play();      
-      else shhh.stop();
-      
     }
   }
+  //if(!shush) shhh.stop();
 
 }
 
