@@ -12,6 +12,7 @@ const FLASH_BG = 0
 
 let auto = false;
 let flash = false;
+let cell = false;
 
 // TURN SETTINGS
 const TURN_INTERVAL = parseInt(FPS * 60 * 0.5); // 10 minutes
@@ -19,9 +20,12 @@ let counter = 0;
 
 // SOUND
 let sound;
+let video;
 
 function preload() {
     sound = loadSound('copter.wav');
+    video = createVideo('cell.mp4');
+    video.hide();
 }
 
 function setup() {
@@ -46,11 +50,15 @@ function draw() {
   else rect(0, height / 2, width, height / 2);
   if(auto) counter++;
 
-  
+  // Show video
+  if(cell) image(video, 0, 0, width, height);
 }
 
 function keyPressed() {
   switch (key) {
+    case 'v':
+      cell = !cell;
+      break;
     case 'f':
       flash = !flash;
       if(flash) {
