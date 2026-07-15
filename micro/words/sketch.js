@@ -12,8 +12,12 @@ console.log(src);
 let record = structuredClone(ab);
 let timers = structuredClone(ab);
 
+// SOUND
+let sound;
+
 function preload() {
   for(let l in ab) phrases[l] = loadStrings(l + '.txt');
+  sound = loadSound('copter.wav');
   //timers = loadJSON('record.json');
 }
 
@@ -23,6 +27,7 @@ function setup() {
     speakers[l] = new p5.Speech(); // speech synthesis object
     speakers[l].setPitch(l == 'a' ? 0.5 : 2);
   }
+  sound.loop();
   background(128);
 }
 
