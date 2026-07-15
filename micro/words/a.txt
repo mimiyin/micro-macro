@@ -24,3 +24,11 @@ delaying
 unrecognizing
 hiding
 when you zoom in, things get further apart
+remember
+follow
+forget
+show 
+reveal
+require
+need
+ask
