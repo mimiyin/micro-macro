@@ -17,10 +17,17 @@ let flash = false;
 const TURN_INTERVAL = parseInt(FPS * 60 * 0.5); // 10 minutes
 let counter = 0;
 
+// SOUND
+let sound;
+
+function preload() {
+    sound = loadSound('copter.wav');
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
-
+  sound.loop();
 }
 
 function draw() {
