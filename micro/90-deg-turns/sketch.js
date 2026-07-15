@@ -51,7 +51,14 @@ function draw() {
   if(auto) counter++;
 
   // Show video
-  if(cell) image(video, 0, 0, width, height);
+  if(cell) {
+    push();
+    imageMode(CENTER);
+    translate(width/2, height/2);
+    rotate(PI/2);
+    image(video, 0, 0, height, width);
+    pop();
+  }
 }
 
 function keyPressed() {
