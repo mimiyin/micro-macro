@@ -2,6 +2,12 @@ prep
 check
 clone
 drop
+extract
+sample
+analyze
+focus
+zoom
+turn
 calibrating
 sequencing
 verifying

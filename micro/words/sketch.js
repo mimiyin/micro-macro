@@ -5,17 +5,22 @@ let speakers = structuredClone(ab);
 let urlParams = new URLSearchParams(window.location.search);
 
 // SETTINGS
-let src = urlParams.get('src') || 'words';
-console.log(src);
+let load = parseInt(urlParams.get('load') || 0);
+let debug = parseInt(urlParams.get('debug') || 0);
 
 // RECORD
 let record = structuredClone(ab);
 let timers = structuredClone(ab);
 
+// CUES
+let cues = [];
+let stage_mgr;
+
 
 function preload() {
   for(let l in ab) phrases[l] = loadStrings(l + '.txt');
-  //timers = loadJSON('record.json');
+  if(load) timers = loadJSON('record.json');
+  cues = loadJSON('cues.json');
 }
 
 function setup() {
@@ -23,8 +28,16 @@ function setup() {
   for(let l in ab) {
     speakers[l] = new p5.Speech(); // speech synthesis object
     speakers[l].setPitch(l == 'a' ? 0.5 : 2);
+    speakers[l].setVolume(0.5);
   }
-  background(128);
+
+  // Stage Manager Voice
+  stage_mgr = new p5.Speech();
+  stage_mgr.setPitch(2);
+  stage_mgr.setVolume(0.25);
+
+  noStroke();
+  background(0);
 }
 
 function draw() {
@@ -32,12 +45,23 @@ function draw() {
   for(let ab in timers) {
     let timer = timers[ab];
     for(let fc of timer) {
-      if(frameCount > fc) {
+      if(frameCount == fc) {
         next(ab);
         break;
       }
     }
   }
+
+  // cues
+  for(let c in cues) {
+    let fc = cues[c] * 60;
+    console.log(frameCount == fc);
+    if(frameCount == fc) {
+      stage_mgr.speak(c);
+    }
+  }
+
+  if(frameCount % 180 == 0) background(0);
 }
 
 function next(k) {
@@ -46,11 +70,14 @@ function next(k) {
   textSize(48);
   textAlign(CENTER);
   
-  let x = key == 'a' ? 0 : width/2;
-  fill(x == 0 ? 33 : 66);
+  let x = k == "a" ? 0 : width/2;
+
+  fill(255);
   rect(x, 0, width/2, height);
-  fill('white');
-  text(random_phrase, x + (width/4), height / 2);
+  if(debug) {
+    fill(128);
+    text(random_phrase, x + (width/4), height / 2);
+  }
 
   // log it
   record[k].push(frameCount);
