@@ -5,10 +5,12 @@ shift
 turn
 unfocus
 require
-moving towards the light
+in the dark
+towards the light
 under control 
 under ideal conditions
 condition to respond
+respond to change
 another opening
 to be determined
 to be changed
