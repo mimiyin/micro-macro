@@ -22,6 +22,7 @@ function preload() {
   if(load) timers = loadJSON('record.json');
   cues = loadJSON('cues.json');
   stage_mgr = loadSound('bell.wav');
+  stage_mgr.setVolume(0.25);
 }
 
 function setup() {
