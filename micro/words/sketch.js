@@ -5,7 +5,7 @@ let speakers = structuredClone(ab);
 let urlParams = new URLSearchParams(window.location.search);
 
 // SETTINGS
-let load = parseInt(urlParams.get('load') || 0);
+let load = parseInt(urlParams.get('load') || 1);
 let debug = parseInt(urlParams.get('debug') || 0);
 
 // RECORD
