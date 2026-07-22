@@ -21,6 +21,8 @@ function preload() {
   for(let l in ab) phrases[l] = loadStrings(l + '.txt');
   if(load) timers = loadJSON('record.json');
   cues = loadJSON('cues.json');
+  stage_mgr = loadSound('bell.wav');
+  stage_mgr.setVolume(0.25);
 }
 
 function setup() {
@@ -30,18 +32,14 @@ function setup() {
     speakers[l].setPitch(l == 'a' ? 0.5 : 2);
     speakers[l].setVolume(0.5);
   }
-
-  // Stage Manager Voice
-  stage_mgr = new p5.Speech();
-  stage_mgr.setPitch(2);
-  stage_mgr.setVolume(0.25);
-
+  randomSeed(7);
   noStroke();
   background(0);
 }
 
 function draw() {
   // auto-pilot;
+
   for(let ab in timers) {
     let timer = timers[ab];
     for(let fc of timer) {
@@ -55,9 +53,8 @@ function draw() {
   // cues
   for(let c in cues) {
     let fc = cues[c] * 60;
-    console.log(frameCount == fc);
     if(frameCount == fc) {
-      stage_mgr.speak(c);
+      stage_mgr.play();
     }
   }
 
@@ -84,6 +81,7 @@ function next(k) {
 }
 
 function keyPressed() {
+  if(load) return;
   if (key in record) next(key);
   else if(keyCode == ENTER) saveJSON(record, 'record-'+ Date.now() + '.json');
 }
