@@ -33,11 +33,13 @@ function setup() {
   // Speak next work
   socket.on('next', function(){ 
     next();
+    console.log('SPEAK');
   });
 
   // Play bell for next cue
   socket.on('cue', function(){
     stage_mgr.play();
+    console.log('CUE');
   })
 }
 
@@ -51,8 +53,8 @@ function next() {
   textAlign(CENTER);
 
   if (debug) {
-    background(random(255));
-    fill(128);
+    background(random(0, 64));
+    fill(255);
     text(random_phrase, width/2, height / 2);
   }
 }
